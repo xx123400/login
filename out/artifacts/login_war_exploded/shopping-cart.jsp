@@ -32,7 +32,7 @@
 </head>
 <body>
 <h1>购物车</h1>
-<table border="1">
+<table>
     <tr>
         <td>商品编号</td>
         <td>商品名称</td>

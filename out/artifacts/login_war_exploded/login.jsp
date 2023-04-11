@@ -1,5 +1,5 @@
 <%@ page import="java.sql.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page  contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +15,7 @@
     <label for="password">密码:</label>
     <input type="password" id="password" name="密码"><br><br>
     <input type="submit" value="登录">
-    <input type="button" onclick="javascript:window.location.href='register.jsp';" value="注册"  >
+    <input type="button" onclick="window.location.href='register.jsp';" value="注册"  >
 </form>
 
 <%
@@ -33,26 +33,26 @@
             pstmt.setString(1, username);
             pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
-if (rs.next()) {
-    response.sendRedirect("shopping-cart.jsp");
-    out.print("登录成功");
-} else {
-    // Check if username exists in database
-    String sql2 = "SELECT * FROM user WHERE username=?";
-    PreparedStatement pstmt2 = conn.prepareStatement(sql2);
-    pstmt2.setString(1, username);
-    ResultSet rs2 = pstmt2.executeQuery();
-    if (rs2.next()) {
-        out.print("密码错误");
+    if (rs.next()) {
+        response.sendRedirect("shopping-cart.jsp");
+        out.print("登录成功");
     } else {
-        out.print("用户名不存在");
-    }
-}
-            conn.close();
-        } catch (Exception e) {
-            out.print(e);
+        //检查用户是否在数据库中
+        String sql2 = "SELECT * FROM user WHERE username=?";
+        PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+        pstmt2.setString(1, username);
+        ResultSet rs2 = pstmt2.executeQuery();
+        if (rs2.next()) {
+            out.print("密码错误");
+        } else {
+            out.print("用户名不存在");
         }
     }
+                conn.close();
+            } catch (Exception e) {
+                out.print(e);
+            }
+        }
 %>
 </body>
 </html>
